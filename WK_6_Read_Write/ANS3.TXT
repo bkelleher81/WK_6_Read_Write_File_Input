@@ -19,5 +19,5 @@
 489
 278
 
-Total = 6147
-Average = 307.35
+Total = 0
+Average = 0

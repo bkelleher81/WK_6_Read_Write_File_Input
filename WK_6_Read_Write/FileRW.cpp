@@ -1,5 +1,6 @@
 #include "FileRW.h"
 #include <iostream>
+#include <string> // string variable
 #include <fstream> // file input database. fstream <<  >>
 					//ifstream >> same as cin
 					//ofstream << same as cout
@@ -17,11 +18,14 @@ void FileRW::displayMenu()
 	if (choice == 1)
 	{
 		cout << "Text file name and Answer key name:  " << endl;
-		cin >> textFile;
-		cin >> ansFile;
+		cin >> textFile >> ansFile; // string variable
 		cout << " " << endl;
 		getData();
 		makeFile();
+		cout << endl;
+		displayMenu();
+		
+
 		
 	}
 
@@ -32,6 +36,7 @@ void FileRW::displayMenu()
 		calculateTotal();
 		calculateAng();
 		writeData();
+		cout << endl;
 		displayMenu();
 	}
 
@@ -53,7 +58,7 @@ void FileRW::readData()
 	}
 	fileInput.close(); // close file
 	cout << "\nNumber of elements read = " << i  << endl; // cout the number of elements read, increase i by 1
-	cout << "Numbers read from data.txt " << endl;
+	cout <<"Numbers read from data.txt " << endl;
 
 	for (int j = 0; j < i; j++)
 	{
@@ -62,25 +67,10 @@ void FileRW::readData()
 	cout << endl;
 }
 
-void FileRW::calculateTotal()
-{
-	for (int i = 0; i < 20; i++)
-	{
-		total = total + myNumbers[i];
-	}
-	cout << "\nTotal = " << total << endl;
-}
-
-void FileRW::calculateAng()
-{
-	average = static_cast<double>( total )/ 20;
-	cout << "Average = " << average << endl;
-}
-
 void FileRW::writeData()
 {
 	ofstream outputFile;
-	outputFile.open(textFile);
+	outputFile.open("key.txt");
 	for (int i = 0; i < 20; i++)
 	{
 		outputFile << myNumbers[i] << endl;
@@ -90,10 +80,19 @@ void FileRW::writeData()
 	outputFile.close();
 }
 
+void FileRW::calculateTotal()
+{
+	total =0;
+	for (int i = 0; i < 20; i++)
+	{
+		total = total + myNumbers[i];
+	}
+	cout << "\nTotal = " << total << endl;
+}
 void FileRW::getData()
 {
 	fstream fileInput;
-	fileInput.open("data1.txt");
+	fileInput.open(textFile);
 	int i = 0;
 	while (!fileInput.eof()) // read each number until the end of the file
 	{
@@ -102,7 +101,7 @@ void FileRW::getData()
 	}
 	fileInput.close(); // close file
 	cout << "\nNumber of elements read = " << i << endl; // cout the number of elements read, increase i by 1
-	cout << "Numbers read from data.txt " << endl;
+	cout << "Numbers read from " << textFile << endl;
 
 	for (int j = 0; j < i; j++)
 	{
@@ -114,12 +113,28 @@ void FileRW::getData()
 void FileRW::makeFile()
 {
 	ofstream outputFile;
-	outputFile.open("ansFile");
+	int i = 0;
+	total = 0;
+	outputFile.open(ansFile);
 	for (int i = 0; i < 20; i++)
 	{
 		outputFile << myNumbers[i] << endl;
 	}
+	for (int i = 0; i < 20; i++)
+	{
+		total = total + myNumbers[i];
+	}
+	average = static_cast<double>(total) / 20;
+	cout << "\nTotal = " << total << endl;
+	cout << "\nAverage= " << average<< endl;
 	outputFile << "\nTotal = " << total << endl;
 	outputFile << "Average = " << average << endl;
 	outputFile.close();
+	
+}
+
+void FileRW::calculateAng()
+{
+	average = static_cast<double>(total) / 20;
+	cout << "Average = " << average << endl;
 }

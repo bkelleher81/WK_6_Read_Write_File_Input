@@ -134,10 +134,10 @@
     <ClCompile Include="FileRW.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="answers.txt" />
     <Text Include="data.txt" />
-    <Text Include="key.txt" />
     <Text Include="data1.txt" />
+    <Text Include="key.txt" />
+    <Text Include="s.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
